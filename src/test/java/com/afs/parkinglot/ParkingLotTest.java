@@ -19,7 +19,7 @@ public class ParkingLotTest {
         Car car2 = new Car("粤W23456");
         parkingLot.park(car);
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.park(car2));
-        assertEquals("No available space", runtimeException.getMessage());
+        assertEquals("No available space.", runtimeException.getMessage());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(10);
         Ticket nonValidTicket = new Ticket();
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(nonValidTicket));
-        assertEquals("Unrecognized parking ticket", runtimeException.getMessage());
+        assertEquals("Unrecognized parking ticket.", runtimeException.getMessage());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(10);
         Ticket nonValidTicket = null;
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(nonValidTicket));
-        assertEquals("Unrecognized parking ticket", runtimeException.getMessage());
+        assertEquals("Unrecognized parking ticket.", runtimeException.getMessage());
     }
 
     @Test
@@ -67,6 +67,6 @@ public class ParkingLotTest {
         Ticket carTicket = parkingLot.park(car);
         parkingLot.fetch(carTicket);
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(carTicket));
-        assertEquals("Unrecognized parking ticket", runtimeException.getMessage());
+        assertEquals("Unrecognized parking ticket.", runtimeException.getMessage());
     }
 }

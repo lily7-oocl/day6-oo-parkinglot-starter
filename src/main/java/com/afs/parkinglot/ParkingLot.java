@@ -15,7 +15,7 @@ public class ParkingLot {
             return null;
         }
         if (parkedCars.size() >= capacity) {
-            throw new RuntimeException("No available space");
+            throw new RuntimeException("No available space.");
         }
         Ticket ticket = new Ticket();
         parkedCars.put(ticket, car);
@@ -23,7 +23,7 @@ public class ParkingLot {
     }
     public Car fetch(Ticket ticket) {
         if (ticket == null || !parkedCars.containsKey(ticket)) {
-            throw new RuntimeException("Unrecognized parking ticket");
+            throw new RuntimeException("Unrecognized parking ticket.");
         }
         return parkedCars.remove(ticket);
     }
