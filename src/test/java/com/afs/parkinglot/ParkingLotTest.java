@@ -36,9 +36,9 @@ public class ParkingLotTest {
     public void should_return_null_when_park_given_a_parking_lot_with_a_parted_car() {
         ParkingLot parkingLot = new ParkingLot(10);
         Car car = new Car("粤W12345");
-        Car car2 = new Car("粤W12345");
         parkingLot.park(car);
-        assertNull(parkingLot.park(car2));
+        parkingLot.park(car);
+        assertNull(parkingLot.park(car));
     }
 
     @Test
@@ -101,6 +101,20 @@ public class ParkingLotTest {
     }
 
     @Test
+    public void should_return_null_when_standard_parking_boy_park_given_three_parking_lot_and_a_null_car_or_a_parted_car() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        ParkingLot parkingLot3 = new ParkingLot(1);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        Car nullCar = null;
+        Car partedCar = new Car("粤W1");
+        standardParkingBoy.park(partedCar);
+        assertNull(standardParkingBoy.park(nullCar));
+        assertNull(standardParkingBoy.park(partedCar));
+    }
+
+    @Test
     public void should_return_a_car_when_standard_parking_boy_park_given_three_parking_lot_and_a_valid_ticket() {
         ParkingLot parkingLot = new ParkingLot(1);
         ParkingLot parkingLot2 = new ParkingLot(1);
@@ -110,5 +124,25 @@ public class ParkingLotTest {
         ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
         assertEquals(car, standardParkingBoy.fetch(ticket));
+    }
+
+    @Test
+    public void should_return_Exception_when_standard_parking_boy_park_given_three_parking_lot_and_a_nonvalid_or_null_or_used_ticket() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        ParkingLot parkingLot3 = new ParkingLot(1);
+        Car car = new Car("粤W1");
+        Ticket nonValidTicket = new Ticket();
+        Ticket nullTicket = null;
+        Ticket usedTicket = parkingLot2.park(car);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        standardParkingBoy.fetch(usedTicket);
+        RuntimeException nonValidTicketException = assertThrows(RuntimeException.class, () -> standardParkingBoy.fetch(nonValidTicket));
+        RuntimeException nullTicketException = assertThrows(RuntimeException.class, () -> standardParkingBoy.fetch(nullTicket));
+        RuntimeException usedTicketException = assertThrows(RuntimeException.class, () -> standardParkingBoy.fetch(usedTicket));
+        assertEquals("Unrecognized parking ticket.", nonValidTicketException.getMessage());
+        assertEquals("Unrecognized parking ticket.", nullTicketException.getMessage());
+        assertEquals("Unrecognized parking ticket.", usedTicketException.getMessage());
     }
 }

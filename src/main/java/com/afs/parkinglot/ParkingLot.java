@@ -30,4 +30,8 @@ public class ParkingLot {
     public boolean isFull() {
         return parkedCars.size() >= capacity;
     }
+
+    public Map<Ticket, Car> getParkedCars() {
+        return parkedCars;
+    }
 }

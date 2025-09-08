@@ -9,6 +9,11 @@ public class StandardParkingBoy {
     }
     public Ticket park(Car car) {
         for (ParkingLot parkingLot : managingParkingLots) {
+            if (parkingLot.getParkedCars().containsValue(car)) {
+                return null;
+            }
+        }
+        for (ParkingLot parkingLot : managingParkingLots) {
             if (!parkingLot.isFull()) {
                 return parkingLot.park(car);
             }
