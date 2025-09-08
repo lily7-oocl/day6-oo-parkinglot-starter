@@ -14,7 +14,7 @@ public class StandardParkingBoy {
             }
         }
         for (ParkingLot parkingLot : managingParkingLots) {
-            if (!parkingLot.isFull()) {
+            if (parkingLot.isNotFull()) {
                 return parkingLot.park(car);
             }
         }

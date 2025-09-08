@@ -19,7 +19,7 @@ public class SmartParkingBoy extends StandardParkingBoy {
             }
         }
         ParkingLot bestParkingLot = getManagingParkingLots().stream()
-                .filter(parkingLot -> !parkingLot.isFull())
+                .filter(ParkingLot::isNotFull)
                 .max(Comparator.comparingInt(ParkingLot::getAvailableSpaces))
                 .orElse(null);
         if (bestParkingLot != null) {
