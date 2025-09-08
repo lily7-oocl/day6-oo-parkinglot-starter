@@ -3,7 +3,7 @@ package com.afs.parkinglot;
 import java.util.List;
 
 public class StandardParkingBoy {
-    List<ParkingLot> managingParkingLots;
+    private final List<ParkingLot> managingParkingLots;
     StandardParkingBoy(List<ParkingLot> managingParkingLots) {
         this.managingParkingLots = managingParkingLots;
     }
@@ -31,5 +31,9 @@ public class StandardParkingBoy {
             }
         }
         throw new RuntimeException("Unrecognized parking ticket.");
+    }
+
+    public List<ParkingLot> getManagingParkingLots() {
+        return managingParkingLots;
     }
 }

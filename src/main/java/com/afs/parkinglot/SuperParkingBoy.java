@@ -3,8 +3,8 @@ package com.afs.parkinglot;
 import java.util.Comparator;
 import java.util.List;
 
-public class SmartParkingBoy extends StandardParkingBoy {
-    SmartParkingBoy(List<ParkingLot> managingParkingLots) {
+public class SuperParkingBoy extends StandardParkingBoy {
+    SuperParkingBoy(List<ParkingLot> managingParkingLots) {
         super(managingParkingLots);
     }
 
@@ -20,7 +20,7 @@ public class SmartParkingBoy extends StandardParkingBoy {
         }
         ParkingLot bestParkingLot = getManagingParkingLots().stream()
                 .filter(parkingLot -> !parkingLot.isFull())
-                .max(Comparator.comparingInt(ParkingLot::getAvailableSpaces))
+                .max(Comparator.comparingDouble(p -> (double) p.getAvailableSpaces() / p.getCapacity()))
                 .orElse(null);
         if (bestParkingLot != null) {
             return bestParkingLot.park(car);
