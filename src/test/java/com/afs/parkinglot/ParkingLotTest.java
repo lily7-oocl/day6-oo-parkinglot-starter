@@ -150,7 +150,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_Ticket_when_smart_parking_boy_park_given_three_parking_lot_and_a_car() {
+    public void should_return_Ticket_when_smart_parking_boy_park_by_available_space_given_three_parking_lot_and_a_car() {
         ParkingLot parkingLot = new ParkingLot(3);
         ParkingLot parkingLot2 = new ParkingLot(1);
         ParkingLot parkingLot3 = new ParkingLot(3);
@@ -198,39 +198,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_a_car_when_smart_parking_boy_park_given_three_parking_lot_and_a_valid_ticket() {
-        ParkingLot parkingLot = new ParkingLot(1);
-        ParkingLot parkingLot2 = new ParkingLot(1);
-        ParkingLot parkingLot3 = new ParkingLot(1);
-        Car car = new Car("粤W1");
-        Ticket ticket = parkingLot2.park(car);
-        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
-        assertEquals(car, smartParkingBoy.fetch(ticket));
-    }
-
-    @Test
-    public void should_return_Exception_when_smart_parking_boy_park_given_three_parking_lot_and_a_nonvalid_or_null_or_used_ticket() {
-        ParkingLot parkingLot = new ParkingLot(1);
-        ParkingLot parkingLot2 = new ParkingLot(1);
-        ParkingLot parkingLot3 = new ParkingLot(1);
-        Car car = new Car("粤W1");
-        Ticket nonValidTicket = new Ticket();
-        Ticket nullTicket = null;
-        Ticket usedTicket = parkingLot2.park(car);
-        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
-        smartParkingBoy.fetch(usedTicket);
-        RuntimeException nonValidTicketException = assertThrows(RuntimeException.class, () -> smartParkingBoy.fetch(nonValidTicket));
-        RuntimeException nullTicketException = assertThrows(RuntimeException.class, () -> smartParkingBoy.fetch(nullTicket));
-        RuntimeException usedTicketException = assertThrows(RuntimeException.class, () -> smartParkingBoy.fetch(usedTicket));
-        assertEquals("Unrecognized parking ticket.", nonValidTicketException.getMessage());
-        assertEquals("Unrecognized parking ticket.", nullTicketException.getMessage());
-        assertEquals("Unrecognized parking ticket.", usedTicketException.getMessage());
-    }
-
-    @Test
-    public void should_return_Ticket_when_super_parking_boy_park_given_three_parking_lot_and_a_car() {
+    public void should_return_Ticket_when_super_parking_boy_park_by_available_space_rate_given_three_parking_lot_and_a_car() {
         ParkingLot parkingLot = new ParkingLot(3);
         ParkingLot parkingLot2 = new ParkingLot(1);
         ParkingLot parkingLot3 = new ParkingLot(2);
@@ -250,20 +218,6 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_Exception_when_super_parking_boy_park_given_three_parking_lot_and_a_car() {
-        ParkingLot parkingLot = new ParkingLot(0);
-        ParkingLot parkingLot2 = new ParkingLot(0);
-        ParkingLot parkingLot3 = new ParkingLot(1);
-        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
-        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
-        Car car = new Car("粤W1");
-        Car car2 = new Car("粤W2");
-        assertNotNull(superParkingBoy.park(car));
-        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.park(car2));
-        assertEquals("No available space.", runtimeException.getMessage());
-    }
-
-    @Test
     public void should_return_null_when_super_parking_boy_park_given_three_parking_lot_and_a_null_car_or_a_parted_car() {
         ParkingLot parkingLot = new ParkingLot(1);
         ParkingLot parkingLot2 = new ParkingLot(1);
@@ -278,34 +232,16 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_a_car_when_super_parking_boy_park_given_three_parking_lot_and_a_valid_ticket() {
-        ParkingLot parkingLot = new ParkingLot(1);
-        ParkingLot parkingLot2 = new ParkingLot(1);
+    public void should_return_Exception_when_super_parking_boy_park_given_three_full_parking_lot_and_a_car() {
+        ParkingLot parkingLot = new ParkingLot(0);
+        ParkingLot parkingLot2 = new ParkingLot(0);
         ParkingLot parkingLot3 = new ParkingLot(1);
-        Car car = new Car("粤W1");
-        Ticket ticket = parkingLot2.park(car);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
         SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
-        assertEquals(car, superParkingBoy.fetch(ticket));
-    }
-
-    @Test
-    public void should_return_Exception_when_super_parking_boy_park_given_three_parking_lot_and_a_nonvalid_or_null_or_used_ticket() {
-        ParkingLot parkingLot = new ParkingLot(1);
-        ParkingLot parkingLot2 = new ParkingLot(1);
-        ParkingLot parkingLot3 = new ParkingLot(1);
         Car car = new Car("粤W1");
-        Ticket nonValidTicket = new Ticket();
-        Ticket nullTicket = null;
-        Ticket usedTicket = parkingLot2.park(car);
-        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
-        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
-        superParkingBoy.fetch(usedTicket);
-        RuntimeException nonValidTicketException = assertThrows(RuntimeException.class, () -> superParkingBoy.fetch(nonValidTicket));
-        RuntimeException nullTicketException = assertThrows(RuntimeException.class, () -> superParkingBoy.fetch(nullTicket));
-        RuntimeException usedTicketException = assertThrows(RuntimeException.class, () -> superParkingBoy.fetch(usedTicket));
-        assertEquals("Unrecognized parking ticket.", nonValidTicketException.getMessage());
-        assertEquals("Unrecognized parking ticket.", nullTicketException.getMessage());
-        assertEquals("Unrecognized parking ticket.", usedTicketException.getMessage());
+        Car car2 = new Car("粤W2");
+        assertNotNull(superParkingBoy.park(car));
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.park(car2));
+        assertEquals("No available space.", runtimeException.getMessage());
     }
 }
