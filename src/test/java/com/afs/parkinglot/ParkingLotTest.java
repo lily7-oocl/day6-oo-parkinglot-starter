@@ -35,4 +35,20 @@ public class ParkingLotTest {
         Car car = null;
         assertNull(parkingLot.park(car));
     }
+
+    @Test
+    public void should_return_car_when_park_given_a_parking_lot_and_a_valid_ticket() {
+        ParkingLot parkingLot = new ParkingLot(10);
+        Car car = new Car("粤W12345");
+        Ticket carTicket = parkingLot.park(car);
+        assertEquals(car, parkingLot.fetch(carTicket));
+    }
+
+    @Test
+    public void should_return_car_when_park_given_a_parking_lot_and_a_nonValid_ticket() {
+        ParkingLot parkingLot = new ParkingLot(10);
+        Ticket nonValidTicket = new Ticket();
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(nonValidTicket));
+        assertEquals("Unrecognized parking ticket", runtimeException.getMessage());
+    }
 }
