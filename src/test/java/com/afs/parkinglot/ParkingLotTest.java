@@ -45,7 +45,15 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_car_when_park_given_a_parking_lot_and_a_nonValid_ticket() {
+    public void should_return_Exception_when_park_given_a_parking_lot_and_a_nonValid_ticket() {
+        ParkingLot parkingLot = new ParkingLot(10);
+        Ticket nonValidTicket = new Ticket();
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(nonValidTicket));
+        assertEquals("Unrecognized parking ticket", runtimeException.getMessage());
+    }
+
+    @Test
+    public void should_return_Exception_when_park_given_a_parking_lot_and_a_null_ticket() {
         ParkingLot parkingLot = new ParkingLot(10);
         Ticket nonValidTicket = null;
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(nonValidTicket));
@@ -53,10 +61,12 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_car_when_park_given_a_parking_lot_and_a_null_ticket() {
+    public void should_return_Exception_when_park_given_a_parking_lot_and_a_used_ticket() {
         ParkingLot parkingLot = new ParkingLot(10);
-        Ticket nonValidTicket = new Ticket();
-        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(nonValidTicket));
+        Car car = new Car("粤W12345");
+        Ticket carTicket = parkingLot.park(car);
+        parkingLot.fetch(carTicket);
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(carTicket));
         assertEquals("Unrecognized parking ticket", runtimeException.getMessage());
     }
 }
