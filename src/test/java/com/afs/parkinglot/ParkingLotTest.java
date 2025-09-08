@@ -76,7 +76,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_Ticket_when_stander_parking_boy_park_given_three_parking_lot_and_a_car() {
+    public void should_return_Ticket_when_standard_parking_boy_park_given_three_parking_lot_and_a_car() {
         ParkingLot parkingLot = new ParkingLot(0);
         ParkingLot parkingLot2 = new ParkingLot(1);
         ParkingLot parkingLot3 = new ParkingLot(2);
@@ -84,5 +84,19 @@ public class ParkingLotTest {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
         Car car = new Car("粤W12345");
         assertNotNull(standardParkingBoy.park(car));
+    }
+
+    @Test
+    public void should_return_Exception_when_standard_parking_boy_park_given_three_parking_lot_and_a_car() {
+        ParkingLot parkingLot = new ParkingLot(0);
+        ParkingLot parkingLot2 = new ParkingLot(0);
+        ParkingLot parkingLot3 = new ParkingLot(1);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        Car car = new Car("粤W1");
+        Car car2 = new Car("粤W2");
+        assertNotNull(standardParkingBoy.park(car));
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.park(car2));
+        assertEquals("No available space.", runtimeException.getMessage());
     }
 }
