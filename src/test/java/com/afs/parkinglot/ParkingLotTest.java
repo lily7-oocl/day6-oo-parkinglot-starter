@@ -21,4 +21,11 @@ public class ParkingLotTest {
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.park(car2));
         assertEquals("No available space", runtimeException.getMessage());
     }
+
+    @Test
+    public void should_return_null_when_park_given_a_parking_lot_with_a_null_car() {
+        ParkingLot parkingLot = new ParkingLot(10);
+        Car car = new Car("粤W12345");
+        parkingLot.park(car);
+    }
 }
