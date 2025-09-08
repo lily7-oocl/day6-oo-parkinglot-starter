@@ -28,4 +28,11 @@ public class ParkingLotTest {
         Car car = null;
         assertNull(parkingLot.park(car));
     }
+
+    @Test
+    public void should_return_null_when_park_given_a_parking_lot_with_a_parted_car() {
+        ParkingLot parkingLot = new ParkingLot(10);
+        Car car = null;
+        assertNull(parkingLot.park(car));
+    }
 }

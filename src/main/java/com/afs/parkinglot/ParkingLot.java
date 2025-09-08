@@ -11,7 +11,7 @@ public class ParkingLot {
         parkedCars = new HashMap<>();
     }
     public Ticket park(Car car) {
-        if (car == null) {
+        if (car == null || parkedCars.containsValue(car)) {
             return null;
         }
         if (parkedCars.size() >= capacity) {
