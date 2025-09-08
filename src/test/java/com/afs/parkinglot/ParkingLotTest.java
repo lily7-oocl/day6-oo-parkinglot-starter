@@ -12,4 +12,13 @@ public class ParkingLotTest {
         assertNotNull(parkingLot.park(car));
     }
 
+    @Test
+    public void should_return_Exception_when_park_given_a_full_parking_lot_with_a_car() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car("粤W12345");
+        Car car2 = new Car("粤W23456");
+        parkingLot.park(car);
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.park(car2));
+        assertEquals("No available space", runtimeException.getMessage());
+    }
 }
