@@ -3,7 +3,7 @@ package com.afs.parkinglot;
 import java.util.Objects;
 
 public class Car {
-    private String carNumber;
+    private final String carNumber;
     Car(String carNumber) {
         this.carNumber = carNumber;
     }

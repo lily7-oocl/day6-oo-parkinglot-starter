@@ -2,6 +2,9 @@ package com.afs.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotTest {
@@ -70,5 +73,16 @@ public class ParkingLotTest {
         parkingLot.fetch(carTicket);
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.fetch(carTicket));
         assertEquals("Unrecognized parking ticket.", runtimeException.getMessage());
+    }
+
+    @Test
+    public void should_return_Ticket_when_stander_parking_boy_park_given_three_parking_lot_and_a_car() {
+        ParkingLot parkingLot = new ParkingLot(0);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        ParkingLot parkingLot3 = new ParkingLot(2);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        Car car = new Car("粤W12345");
+        assertNotNull(standardParkingBoy.park(car));
     }
 }

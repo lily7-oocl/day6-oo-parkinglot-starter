@@ -27,4 +27,7 @@ public class ParkingLot {
         }
         return parkedCars.remove(ticket);
     }
+    public boolean isFull() {
+        return parkedCars.size() >= capacity;
+    }
 }
