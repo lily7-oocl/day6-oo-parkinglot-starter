@@ -99,4 +99,16 @@ public class ParkingLotTest {
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> parkingLot.park(car2));
         assertEquals("No available space.", runtimeException.getMessage());
     }
+
+    @Test
+    public void should_return_a_car_when_standard_parking_boy_park_given_three_parking_lot_and_a_valid_ticket() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        ParkingLot parkingLot3 = new ParkingLot(1);
+        Car car = new Car("粤W1");
+        Ticket ticket = parkingLot2.park(car);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot, parkingLot2, parkingLot3));
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        assertEquals(car, standardParkingBoy.fetch(ticket));
+    }
 }
