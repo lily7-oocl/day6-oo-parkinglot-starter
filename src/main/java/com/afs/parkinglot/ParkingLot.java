@@ -11,6 +11,9 @@ public class ParkingLot {
         parkedCars = new HashMap<>();
     }
     public Ticket park(Car car) {
+        if (car == null) {
+            return null;
+        }
         if (parkedCars.size() >= capacity) {
             throw new RuntimeException("No available space");
         }

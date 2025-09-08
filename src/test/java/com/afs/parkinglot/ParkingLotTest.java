@@ -25,7 +25,7 @@ public class ParkingLotTest {
     @Test
     public void should_return_null_when_park_given_a_parking_lot_with_a_null_car() {
         ParkingLot parkingLot = new ParkingLot(10);
-        Car car = new Car("粤W12345");
-        parkingLot.park(car);
+        Car car = null;
+        assertNull(parkingLot.park(car));
     }
 }
